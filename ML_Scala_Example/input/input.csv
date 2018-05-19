@@ -1,0 +1,17 @@
+Email,Address,Avg_Session_length,time_on_app,time_on_website,length_of_Membership,Yearly_Amount_Spent
+a@a.com,USA,35.5,15.0,38.0,120,400.00
+b@a.com,INDIA,15.5,10.0,38.0,90,200.00
+c@a.com,USA,25.5,16.0,38.0,240,600.00
+d@a.com,UK,45.5,23.0,38.0,340,800.00
+e@a.com,USA,45.5,30.0,38.0,135,300.00
+f@a.com,INDIA,65.5,16.0,38.0,90,100.00
+g@a.com,INDIA,55.5,18.0,38.0,99,120.00
+h@a.com,USA,35.5,30.0,38.0,340,300.00
+i@a.com,UK,25.5,35.0,38.0,500,600.00
+j@a.com,UK,15.5,25.0,38.0,400,450.00
+k@a.com,UK,10.5,26.0,38.0,300,350.00
+l@a.com,USA,35.5,55.0,38.0,600,800.00
+m@a.com,USA,20.5,45.0,38.0,450,550.00
+n@a.com,INDIA,55.5,10.0,38.0,200,230.00
+o@a.com,INDIA,25.5,13.0,38.0,150,340.00
+
