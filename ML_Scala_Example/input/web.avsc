@@ -1,0 +1,26 @@
+{
+    "namespace": "kakfa-avro.test",
+     "type": "record",
+     "name": "user",
+     "fields":[
+         {
+            "name": "Email", "type": "string"
+         },
+         {
+            "name": "Address",  "type": "string"
+         },
+         {
+            "name": "Avg_Session_length", "type": "double"
+         },
+         {
+            "name": "time_on_app", "type": "double"
+         },
+         {
+            "name": "time_on_website", "type": "double"
+         },
+         {
+            "name": "length_of_Membership", "type": "int"
+         }
+     ]
+}
+

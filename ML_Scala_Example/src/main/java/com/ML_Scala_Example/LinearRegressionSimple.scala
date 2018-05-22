@@ -11,6 +11,8 @@ import org.apache.spark.ml.regression.LinearRegression
 import org.apache.spark.ml.tuning.{ParamGridBuilder, TrainValidationSplit}
 import org.apache.spark.sql.types.DataTypes
 import org.apache.spark.ml.Pipeline
+import org.apache.spark.rdd.RDD
+import org.apache.spark.mllib.regression.LinearRegressionWithSGD
 
 
 
@@ -37,13 +39,33 @@ object LinearRegressionSimple {
    
     val pipeline = new Pipeline().setStages(Array(addressIndex,encoder,assembler,lr))
     
-    val model = pipeline.fit(dataDF)
-    val predictionResult = model.transform(dataDF)
+    val splits = dataDF.randomSplit(Array(0.8, 0.2))
+    val training = splits(0).cache()
+    val test = splits(1).cache()
+    
+    
+    val model = pipeline.fit(training)
+    val predictionResult = model.transform(test).select("label", "prediction")
+    
+     val redeictioAndLabels = predictionResult.map {
+        row => (row.get(0).asInstanceOf[Double], row.get(1).asInstanceOf[Double])
+      }
+    val redeictioAndLabelsrdd : RDD[(Double, Double)] = redeictioAndLabels.rdd
+    val MSE = redeictioAndLabelsrdd.map{ case(v, p) => math.pow((v - p), 2) }.mean()
+    println("training Mean Squared Error = " + MSE)
+    val rmse   = math.sqrt(MSE)
+    println(s"Root-mean-square error = $rmse")
+    
+    //other way to find root mean square error
    
    val evaluator = new RegressionEvaluator().setMetricName("rmse").setLabelCol("label").setPredictionCol("prediction")
   
-  val rmse = evaluator.evaluate(predictionResult)
-println(s"Root-mean-square error = $rmse")
+  val rmse1 = evaluator.evaluate(predictionResult)
+  println(s"Root-mean-square error = $rmse1")
+  
+  //save model for prediction
+  model.write.overwrite().save("/user/hadoop/testdata/webprediction/")
+  
   
     
   }
